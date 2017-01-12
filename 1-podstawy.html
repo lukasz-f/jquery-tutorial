@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script type="text/javascript" src="jquery-2.2.2.js"></script>
+		<script type="text/javascript">
+			/* Nadawanie klasy CSS wybranym elementom drzewa DOM */
+			$(document).ready(function() {
+				$('#textDiv p').addClass('boldGrey');
+			});
+		</script>
+		<script type="text/javascript">
+			/* Użycie funkcji jQuery */
+			jQuery(document).ready(function() {
+				jQuery('#textDiv p').addClass('boldGrey');
+			});
+		</script>
+		<script type="text/javascript">
+			/* Skrócona forma dla metody ready */
+			$(function() {
+				$('#textDiv p').addClass('boldGrey');
+			});
+		</script>
+		<script type="text/javascript">
+			/* Łańcuch wywołań funkcji jQuery */
+			$(document).ready(function() {
+				$('#textDiv p').addClass('boldGrey').text('Takie same akapity');
+			});
+		</script>
+		<script type="text/javascript">
+			/* Wielokrotne wywoływanie metody ready ze zwykłymi funkcjami */
+			function zmienAkapity() {
+				$('#textDiv p').addClass('boldGrey');
+			}
+			function zmienTekst() {
+				$('#textDiv p').text('Takie same akapity');
+			}
+			$(document).ready(zmienAkapity);
+			$(document).ready(zmienTekst);
+		</script>
+		<script type="text/javascript">
+			/* Wywoływanie metody ready z funkcjami anonimowymi */
+			$(document).ready(function() {
+				$('#textDiv p').addClass('boldGrey');
+			});
+			$(document).ready(function() {
+				$('#textDiv p').text('Takie same akapity');
+			});
+		</script>
+		<script type="text/javascript">
+			/* Połączenie metody jQuery i funkcji lokalnych */
+			$(document).ready(function() {
+				dodajKlase('textDiv', 'P', 'boldGrey');
+				zmienTekst('textDiv', 'P', 'Takie same akapity');
+			});
+			function dodajKlase(elementId, nodeName, className) {
+				var element = document.getElementById(elementId);
+				for (var i = 0; i < element.childNodes.length; ++i) {
+					if (element.childNodes[i].nodeName == nodeName && element.childNodes[i].nodeType == 1) {
+						element.childNodes[i].className = className;
+					}
+				}
+			}
+			function zmienTekst(elementId, nodeName, text) {
+				var element = document.getElementById(elementId);
+				for (var i = 0; i < element.childNodes.length; ++i) {
+					if (element.childNodes[i].nodeName == nodeName && element.childNodes[i].nodeType == 1) {
+						if (element.childNodes[i].firstChild && element.childNodes[i].firstChild.nodeType == 3) {
+							element.childNodes[i].firstChild.nodeValue = text;
+						}
+					}
+				}
+			}
+		</script>
+		<!--<script type="text/javascript">
+			/* Lokalny alias $ */
+			jQuery.noConflict();
+			//Tutaj nie można używać aliasu $ dla jQuery.
+			jQuery(document).ready(function($){
+				//Tutaj można używać aliasu $ dla jQuery.
+				$('#textDiv p').addClass('boldGray');
+			});
+			//Tutaj nie można używać aliasu $ dla jQuery.
+			//Poniższa instrukcja jest nieprawidłowa.
+			//$('#textDiv p').text('Takie same akapity.');
+		</script>-->
+		<script type="text/javascript">
+			/* Wyprowadzanie danych na konsolę */
+			$(document).ready(function() {
+				var textDiv = document.getElementById('textDiv');
+				for (var i = 0; i < textDiv.childNodes.length; ++i) {
+					var str = 'Węzeł nr ' + i + '\n';
+					str += 'Typ: ' + textDiv.childNodes[i].nodeType + '\n';
+					str += 'Nazwa: ' + textDiv.childNodes[i].nodeName + '\n';
+					console.log(str);
+				}
+			});
+		</script>
+		<title>Podstawy jQuery</title>
+		<style>
+			.boldGrey {
+				font-weight: bold;
+				color: gray;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="textDiv">
+			<p class="boldGrey">To jest pierwszy akapit.</p>
+			<p>To jest drugi akapit.</p>
+			<p>To jest trzeci akapit.</p>
+		</div>
+		<script type="text/javascript">
+			/* Skrypt jQuery umieszczony bezpośrednio w strukturze kodu HTML */
+			$('#textDiv p').addClass('boldGrey');
+		</script>
+		<script type="text/javascript">
+			/* Porównanie jQuery i czystego JavaScriptu */
+			document.addEventListener('DOMContentLoaded', load, false);
+			function load() {
+				var textDiv = document.getElementById('textDiv');
+				for (var i = 0; i < textDiv.childNodes.length; ++i) {
+					if (textDiv.childNodes[i].nodeName == 'P' && textDiv.childNodes[i].nodeType == 1) {
+						textDiv.childNodes[i].className = 'boldGrey';
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

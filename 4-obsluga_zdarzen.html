@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.js"></script>
+        <script type="text/javascript">
+            /* Podstawowe zdarzenia i ich znaczenie
+                Zdarzenia związane z przeglądarką:
+                    error - Element, do którego występuje odwołanie w dokumencie, np. obraz, nie może by załadowany
+                    resize - Zmieniły się rozmiary okna przeglądarki
+                    scroll - Zawartoś elementu strony (dla elementów dopuszczających taką możliwoś) lub cała strona została przewinięta
+                Zdarzenia związane z dokumentem:
+                    load - Cała zawartoś elementu (lub całej strony) wraz z elementami zależnymi (obrazy, skrypty, ramki itp.) została załadowana
+                    unload - Strona jest opuszczana przez użytkownika
+                Zdarzenia związane z formularzami:
+                    blur - Element traci fokus
+                    change - Nastąpiła zmiana wartości przechowywanej przez element
+                    focus - Element zyskuje fokus
+                    submit - Zawartoś formularza jest wysyłana (kliknięcie przycisku typu submit lub wywołanie metody submit)
+                Zdarzenia związane z obsługą myszy:
+                    click - Kliknięcie przyciskiem myszy nad elementem
+                    dblclick - Podwójne kliknięcie przyciskiem myszy nad elementem
+                    mousedown - Wciśnięcie przycisku myszy nad elementem
+                    mousemove - Przesunięcie przycisku myszy nad elementem
+                    mouseout - Przesunięcie przycisku myszy poza obszar elementu
+                    mouseover - Przesunięcie przycisku myszy nad obszar elementu
+                    mouseup - Zwolnienie przycisku myszy nad elementem
+                Zdarzenia związane z klawiaturą:
+                    keydown - Przycisk został wciśnięty (dotyczy elementu, który ma fokus)
+                    keypress - Został odczytany znak z klawiatury (dotyczy elementu, który ma fokus)
+                    keyup - Przycisk został zwolniony (dotyczy elementu, który ma fokus)
+            */
+        </script>
+        <script type="text/javascript">
+            /* Powiązanie zdarzenia z procedurą jej obsługi:
+                element.on('zdarzenie', function() {
+                    // kod funkcji
+                });
+                element.zdarzenie(function() {
+                    // kod funkcji
+                });
+            */
+        </script>
+        <script type="text/javascript">
+            /* Ukrywanie i ponowne wywietlanie wybranych elementów strony */
+            $(function() {
+                $('#button-hidelinks').on('click', function() {
+                    $('div a').addClass('hidden');
+                });
+                $('#button-showlinks').on('click', function() {
+                    $('div a').removeClass('hidden');
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            /* Włączanie i wyłączanie przycisków */
+            $(function() {
+                $('#button-showlinks').prop('disabled', true);
+                $('#button-hidelinks').on('click', function() {
+                    $('#button-showlinks').prop('disabled', false);
+                    $('#button-hidelinks').prop('disabled', true);
+                });
+                $('#button-showlinks').on('click', function() {
+                    $('#button-showlinks').prop('disabled', true);
+                    $('#button-hidelinks').prop('disabled', false);
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            /* Zmiana stanu przycisków na przeciwny */
+            $(function() {
+                $('#button-hidelinks').on('click', function() {
+                    // switchButtons();
+                });
+                $('#button-showlinks').on('click', function() {
+                    // switchButtons();
+                });
+            });
+            function switchButtons() {
+                $('#div-options button').each(function() {
+                    if ($(this).prop('disabled')) {
+                        $(this).prop('disabled', false);
+                    } else {
+                        $(this).prop('disabled', true);
+                    }
+                });
+            }
+        </script>
+        <script type="text/javascript">
+            /* Włączanie i wyłączanie odnośników za pomocą jednego przycisku */
+            $(function() {
+                $('#button-showhidelinks').click(function() {
+                    $('div a').toggleClass('hidden');
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            /* Zapamiętywanie stanu elementu */
+            $(function() {
+                $('#button-showhidelinks2').prop('hiddenLinks', false);
+                $('#button-showhidelinks2').text('Ukryj odnośniki');
+                $('#button-showhidelinks2').click(function() {
+                    $('div a').toggleClass('hidden');
+                    if ($('#button-showhidelinks2').prop('hiddenLinks')) {
+                        $('#button-showhidelinks2').prop('hiddenLinks', false);
+                        $('#button-showhidelinks2').text('Ukryj odnośniki');
+                    } else {
+                        $('#button-showhidelinks2').prop('hiddenLinks', true);
+                        $('#button-showhidelinks2').text('Pokaż odnośniki');
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            /* Zapamiętywanie stanu elementu — wersja skondensowana */
+            $(function() {
+                $('#button-showhidelinks3').prop('hiddenLinks', false);
+                $('#button-showhidelinks3').text('Ukryj odnośniki — wersja skondensowana');
+                $('#button-showhidelinks3').click(function() {
+                    $('div a').toggleClass('hidden');
+                    $(this).prop('hiddenLinks', function(index, val) {
+                        $(this).text(val ? 'Ukryj odnośniki — wersja skondensowana' : 'Pokaż odnośniki — wersja skondensowana');
+                        return !val;
+                    });
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            /* Zdarzenia złożone jQuery
+                Metody obsługujące złożone zdarzenia:
+                    focusin - Element otrzymał fokus lub dowolny element podrzędny otrzymał fokus
+                    focusout - Element stracił fokus lub dowolny element podrzędny stracił fokus
+                    mouseenter - Kursor myszy znalazł się nad elementem. Zdarzenie nie jest wywoływane, gdy kursor znajdzie się nad elementem potomnym (jak dzieje się w przypadku mouseover)
+                    mouseleave - Kursor myszy opuścił obszar elementu. Zdarzenie nie jest wywoływane, gdy kursor opuszcza element potomny (jak dzieje się w przypadku mouseout)
+                Metody przypisania procedur obsługi:
+                    hoover(funkcja1, funkcja2) — przypisuje jednocześnie procedury obsługi zdarzeń mouseenter i mouseleave. 
+                        Pierwsza funkcja będzie wywoływana, gdy kursor myszy znajdzie się nad elementem, a druga — gdy opuści obszar elementu
+                    toggle(funkcja1, funkcja2[, funkcjaN]) — podczas klikania elementu powoduje naprzemienne wywoływanie funkcji przekazanych w postaci argumentu 
+                        (deprecated in jQuery 1.8 and removed in jQuery 1.9)
+            */
+        </script>
+        <script type="text/javascript">
+            /* Obiekt zdarzenia:
+                metakey — określa, czy w trakcie zdarzenia był wciśnięty klawisz funkcyjny Meta (Command)
+                pageX — współrzędna X kursora myszy
+                pageY — współrzędna Y kursora myszy
+                relatedTarget — obiekt biorący udział w zdarzeniu, inny niż target (o ile występuje)
+                target — obiekt inicjujący zdarzenie
+                which — określa, który klawisz (na klawiaturze) lub przycisk myszy został wciśnięty
+            */
+        </script>
+        <script type="text/javascript">
+            /*  Właściwości obiektu reprezentującego zdarzenie */
+            $(function() {
+                $('#button-showproperties').click(function(event) {
+                    for (val in event) {
+                        if (!$.isFunction(event[val])) {
+                            console.log('event.' + val + ' = ' + event[val]);
+                        }
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            /* Metody obiektu zdarzenia
+                isDefaultPrevented - Określa, czy została wyłączona domyślna akcja przypisana zdarzeniu 
+                    (czy była wywoływana metoda preventDefault)
+                isImmediatePropagationStopped - Określa, czy propagacja zdarze została zatrzymana we wszystkich procedurach obsługi 
+                    (czy była wywoływana metoda stopImmediatePropagation)
+                isPropagationStopped - Określa, czy została zatrzymana propagacja zdarze 
+                    (czy była wywoływana metoda stopPropagation)
+                preventDefault - Blokuje domyślną akcję przypisaną zdarzeniu
+                stopImmediatePropagation - Zatrzymuje propagację zdarzenia dla wszystkich procedur obsługi
+                stopPropagation - Zatrzymuje propagację zdarzenia dla aktualnej procedury obsługi
+            */
+        </script>
+        <script type="text/javascript">
+            /* Wyłączenie działania odnośników */
+            $(function() {
+                var disabledLinks = false;
+                $('#button-enabledisablelinks').text('Wyłcz odnośniki');
+                $('div a').click(function(event) {
+                    if(disabledLinks) {
+                        event.preventDefault();
+                    }
+                });
+                $('#button-enabledisablelinks').click(function() {
+                    disabledLinks = !disabledLinks;
+                    if (disabledLinks) {
+                        $(this).text('Włącz odnośniki');
+                    } else {
+                        $(this).text('Wyłącz odnośniki');
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            /* Zarządzanie propagacją w procedurze obsługi zdarzenia */
+            $(function() {
+                $('div').click(function(event) {
+                    if ($('input:radio[name="prop"]:checked').val() == 0) {
+                        event.stopPropagation();
+                    } 
+                    $(this).toggleClass('marked');
+                    console.log('Metoda click warstwy ' + $(this).attr('id'));
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            /* Usuwanie procedur obsługi */
+
+        </script>
+        <title>Obsługa zdarzeń</title>
+        <style>
+            .hidden {
+                display: none;
+            }
+            .marked {
+                color: #F00000;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="div-options">
+            <button id="button-hidelinks">Ukryj odnośniki</button>
+            <button id="button-showlinks">Poka odnośniki</button>
+            <button id="button-showhidelinks">Pokaż/Ukryj odnośniki</button>
+            <button id="button-showhidelinks2"></button>
+            <button id="button-showhidelinks3"></button>
+            <button id="button-showproperties">Wyświetl właściwości</button>
+            <button id="button-enabledisablelinks"></button>
+        </div>
+        <div class="rozdzial" id="rozdzial1">
+            <h3>Rozdział 1.</h3>
+            <p>To jest treść pierwszego akapitu.</p>
+            <p>To jest treść drugiego akapitu.</p>
+            <!-- dalsze akapity -->
+            <a href="/dane/rozdzial1.pdf">Pobierz</a>
+        </div>
+        <div class="rozdzial" id="rozdzial2">
+            <h3>Rozdział 2.</h3>
+            <p>To jest treść pierwszego akapitu.</p>
+            <p>To jest treść drugiego akapitu.</p>
+            <!-- dalsze akapity -->
+            <a href="/dane/rozdzial2.pdf">Pobierz</a>
+        </div>
+        <input type="radio" name="prop" value="1" checked="checked"/>Propagacja włączona
+        <input type="radio" name="prop" value="0" />Propagacja wyłączona
+        <div id="div1">
+            Jestem warstw zewnętrzn.
+            <div id="div2">Jestem warstw wewnętrzn.</div>
+        </div> 
+    </body>
+</html>

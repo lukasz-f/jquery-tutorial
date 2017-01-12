@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.js"></script>
+        <script type="text/javascript">
+            /* Podstawowe selektory są zgodne ze specyfikacją stylów CSS1
+                * - wszystkie elementy
+                .nazwa_klasy - elementy o klasie nazwa_klasy
+                nazwa_elementu - elementy o nazwie nazwa_elementu
+                #identyfikator - element o identyfikatorze identyfikator
+                selektor1, selektor2, ..., selektorN - elementy odpowiadające konkretnym selektorom
+             */
+            /* Łączenie selektorów
+                #identyfikator nazwa_elementu - wszystkie elementy nazwa_elementu
+                        zawarte w elemencie o identyfikatorze identyfikator np. #textDiv p
+                nazwa_elementu_1.nazwa_klasy nazwa_elementu_2 - wszystkie elementy o nazwie nazwa_elementu_2
+                        zawarte w elementach nazwa_elementu_1 o klasie nazwa_klasy np. div.plainText span
+             */
+        </script>
+        <script type="text/javascript">
+            /* Prosty dostęp do elementów witryny */
+            $(document).ready(function() {
+                $('#listaPublikacji a').addClass('listLink');
+            });
+        </script>
+        <script type="text/javascript">
+            /* Kilka selektorów w jednym wywołaniu */
+            $(document).ready(function() {
+                $('#listaPublikacji, #ksiazkiInformatyczne ul').addClass('no-bullet');
+            });
+        </script>
+        <script type="text/javascript">
+            /* Wybór ze względu na hierarchię
+                element1 element2 - oznacza wszystkie elementy element2 położone niżej w hierarchi niż element element1
+                        aż do końca danej gałęzi drzewa (relacja przodek - potomek, ang. ancestor - descendant)
+                nadrzedny > potomny - oznacza wszystkie elementy będące bezpośrednimi następnikami elementu nadrzędnego
+                        (relacja rodzic - dziecko, ang. parent - child)
+                poprzednik + nastepnik - elementy następnik, które na tym samym poziomie hierarchii są poprzedzone
+                        elementami poprzednik (następny sąsiadujący, ang. next adjacent)
+                poprzednik - nastepnik - wszystkie elementy pasujące do selektora następnik, które są na tym samym poziomie
+                        i znajdują się za selektorem poprzednik (następni sąsiadujący, ang. next siblings)
+             */
+        </script>
+        <script type="text/javascript">
+            /* Użycie relacji przodek – potomek */
+            $(document).ready(function() {
+                $('#listaPublikacji > li').addClass('horizontal-list');
+                $('#listaPublikacji > li + li').addClass('margin20px');
+            });
+        </script>
+        <script type="text/javascript">
+            /* Dostęp do węzłów potomnych
+                :first-child - wszystkie pierwsze węzły potomne
+                :last-child — wszystkie ostatnie węzły potomne
+                :nth-child(N) — wszystkie n-te węzły potomne (indeksowanie od 1)
+                :only-child — wszystkie pojedyncze węzły potomne
+             */
+        </script>
+        <script type="text/javascript">
+            /* Odwołanie do elementu potomnego na konkretnej pozycji */
+            $(document).ready(function() {
+                $('#ksiazkiInformatyczne ul li:last-child').addClass('markedElement');
+            });
+        </script>
+        <script type="text/javascript">
+            /* Wyszukiwanie atrybutów
+                element[atrybut]
+                element[atrybut operator wartość]
+                element1[atrybut1 operator1 wartość1] element2[atrybut2 operator2 wartość2]
+                Np: $('img[src*="book"]') - takie znaczniki img, które w atrybucie src zawierają ciąg book
+                Operatory:
+                    = — elementy z atrybutami o wartości określonej przez parametr wartość;
+                    != — elementy, które nie mają danego atrybutu bądź atrybut ten nie ma wartości określonej przez wartość;
+                    |= — elementy z atrybutami o wartości zaczynającej się od ciągu określonego przez parametr wartość,
+                            po której może występować znak -, a dalej dowolny ciąg;
+                    *= — elementy z atrybutami, które zawierają w sobie ciąg określony przez parametr wartość;
+                    ~= — elementy z atrybutami, które zawierają w sobie słowo określone przez parametr wartość,
+                            wydzielone z ciągu białymi znakami;
+                    ^= — elementy z atrybutami, które rozpoczynają się od ciągu wskazanego przez wartość;
+                    $= — elementy z atrybutami, które kończą się ciągiem wskazanym przez wartość.
+             */
+        </script>
+        <script type="text/javascript">
+            /* Przykłady selektorów służących do wybierania elementów ze względu na atrybuty
+                scripts[src] - Elementy typu script posiadające atrybut src (skrypty zewnętrzne)
+                        (<script type="text/javascript" src="/skrypty/animacja.js">)
+                input[type='text'] - Elementy typu input z atrybutem type równym text (pola tekstowe)
+                        (<input type="text" name="imie"/>)
+                input[type!='text'] - Elementy typu input z atrybutem type różnym od text
+                        (elementy formularza niebędące prostymi polami tekstowymi) (<input type="radio" name="grupa1" val="1"/>)
+                p[class|='text'] - Elementy typu p z atrybutem class o wartości zaczynającej się od ciągu text,
+                        po którym może występować znak -, a za nim inne znaki (<p class="text-bold">abc</p>)
+                p[class*='text'] - Elementy typu p z atrybutem class o wartości zawierającej ciąg text
+                        (<p class="textbolditalics">abc</p> <p class="boldredtext">abc</p>)
+                div[class~='info'] - Elementy typu div z atrybutem class o wartości zawierającej słowo info
+                        (<div class="error info div"> <div class="message info">)
+                img[src^='ikony'] - Elementy typu img (pliki graficzne) z atrybutem src rozpoczynającym się od ciągu ikony
+                        (<img src="ikony/disk.png"/> <img src="ikony.png"/>)
+                img[src$='.jpg'] - Elementy typu img (pliki graficzne) z atrybutem src kończącym się ciągiem .jpg
+                        (<img src="obrazy/lake.jpg"/> <img src="house.jpg"/>)
+             */
+        </script>
+        <script type="text/javascript">
+            /* Wybieranie elementów ze względu na wartość atrybutu */
+            $(document).ready(function() {
+                $('li[class="ebook"] a').addClass('epubli');
+                //$('li.ebook a').addClass('epubli'); //to samo co wyżej
+            });
+        </script>
+        <script type="text/javascript">
+            /* Różnicowanie wyglądu elementów ze względu na wartość atrybutu */
+            $(document).ready(function () {
+                $('a[href$=".pdf"]').addClass('pdf');
+                $('a[href$=".chm"]').addClass('chm');
+                $('a[href$=".zip"]').addClass('zip');
+            });
+        </script>
+        <script type="text/javascript">
+            /* Selektory związane z formularzami
+                    (selektory zgodne z CSS i obsługiwane natywnie przez przeglądarkę są wydajniejsze od rozszerzeń jQuery)
+                :button - Wszelkie przyciski (Rozszerzenie jQuery)
+                :checkbox - Elementy typu checkbox (pola wyboru) (Rozszerzenie jQuery)
+                :checked - Elementy, które są zaznaczone (Standard CSS3)
+                :disabled - Elementy, które są wyłączone (Standard CSS3)
+                :enabled - Elementy, które są włączone (Standard CSS3)
+                :file - Elementy input typu file (Rozszerzenie jQuery)
+                :focus - Elementy posiadające fokus (aktywne w danej chwili) (Standard CSS2)
+                :image - Elementy graficzne (Rozszerzenie jQuery)
+                :input - Wszystkie kontrolki formularza (pola tekstowe, listy, przyciski) (Rozszerzenie jQuery)
+                :password - Elementy typu password (Rozszerzenie jQuery)
+                :radio - Pola wyboru typu radio (Rozszerzenie jQuery)
+                :reset - Elementy resetujące formularz (przyciski Reset) (Rozszerzenie jQuery)
+                :selected - Zaznaczone pozycje list (elementów typu option) (Rozszerzenie jQuery)
+                :submit - Elementy typu submit (wysyłające zawartość formularza) (Rozszerzenie jQuery)
+                :text - Pola tekstowe (elementy typu text, również elementy input bez atrybutu type) (Rozszerzenie jQuery)
+             */
+        </script>
+        <script type="text/javascript">
+            /* Dostęp do elementów formularza */
+            $(document).ready(function() {
+                $(':text').addClass('textInputs');
+                $(':radio + label').addClass('radioLabels');
+            });
+        </script>
+        <script type="text/javascript">
+            /* Wybrane selektory rozpoznawane przez jQuery
+                    (selektory zgodne z CSS i obsługiwane natywnie przez przeglądarkę są wydajniejsze od rozszerzeń jQuery)
+				:animated - Elementy w trakcie animacji (Rozszerzenie jQuery)
+				:contains(tekst) - Elementy zawierające określony tekst (Rozszerzenie jQuery)
+				:eq(N) - Element o indeksie wskazanym przez N (indeksowanie od 0) (Rozszerzenie jQuery)
+				:empty - Elementy, które nie mają węzłów potomnych (Standard CSS3)
+				:even - Elementy o indeksach parzystych (indeksowanie od 0) (Rozszerzenie jQuery)
+				:first - Pierwszy element (Rozszerzenie jQuery)
+				:gt(N) - Elementy o indeksie większym od N (indeksowanie od 0) (Rozszerzenie jQuery)
+				:has(selektor) - Elementy, które wśród węzłów potomnych (na dowolnym poziomie hierarchii) mają te pasujące do selektora będącego argumentem (Rozszerzenie jQuery)
+				:hidden - Elementy, które są ukryte (Rozszerzenie jQuery)
+				:header - Elementy nagłówków (znaczniki h) (Rozszerzenie jQuery)
+				:last - Ostatni element (Rozszerzenie jQuery)
+				:lt(N) - Elementy o indeksie mniejszym od N (indeksowanie od 0) (Rozszerzenie jQuery)
+				:not(selektor) - Elementy niepasujące do wskazanego selektora (Standard CSS3)
+				:odd - Elementy o indeksach nieparzystych (indeksowanie od 0) (Rozszerzenie jQuery)
+				:parent - Elementy, które mają węzły potomne (Rozszerzenie jQuery)
+				:visible - Elementy, które są widoczne (Rozszerzenie jQuery)
+             */
+        </script>
+        <script type="text/javascript">
+            /* Wyróżnianie wierszy w wyliczeniach */
+            $(document).ready(function () {
+                $('#listaPublikacji > li:eq(1) ul li:even').addClass('coloredElement');
+            });
+        </script>
+		<title>Dostęp do elementów strony</title>
+        <style>
+            .listLink {
+                color: #0000FF;
+                text-decoration: none;
+            }
+            .no-bullet {
+                list-style: none;
+            }
+            .horizontal-list {
+                float: left;
+            }
+            .margin20px {
+                margin-left: 20px;
+            }
+            .markedElement {
+                font-weight: bold;
+                background-color: #00EEFF;
+            }
+            .epubli {
+                background: url("epub.gif") no-repeat right top;
+                padding-right: 25px;
+            }
+            a.pdf {
+                background: url("pdf.gif") no-repeat right top;
+                padding-right: 25px;
+            }
+            a.chm {
+                background: url("chm.png") no-repeat right top;
+                padding-right: 27px;
+            }
+            a.zip {
+                background: url("zip.png") no-repeat right top;
+                padding-right: 26px;
+            }
+            .textInputs {
+                color: #00AAFF;
+            }
+            .radioLabels {
+                color: blue;
+            }
+            .coloredElement {
+                background-color: #EEEEFF;
+            }
+        </style>
+	</head>
+	<body>
+		<ul id="listaPublikacji">
+            <li>Książki
+                <ul id="ksiazkiInformatyczne">
+                    <li>JavaScript
+                        <ul>
+                            <li class="ebook"><a href="http://helion.pl/ksiazki/cwjas3.htm">JavaScript. ćwiczenia praktyczne</a></li>
+                            <li>JavaScript. Praktyczny kurs</li>
+                            <li><a href="http://helion.pl/ksiazki/tijs.htm">Tablice informatyczne. JavaScript</a></li>
+                        </ul>
+                    </li>
+                    <li>PHP
+                        <ul>
+                            <li class="ebook"><a href="http://helion.pl/ksiazki/ph5pk2.htm">PHP. Praktyczny kurs</a></li>
+                            <li>PHP. 101 praktycznych skryptów</li>
+                            <li><a href="http://helion.pl/ksiazki/tiphp5.htm">Tablice informatyczne. PHP 5</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>Dokumenty
+                <ul>
+                    <li><a href="http://www.w3.org/TR/CSS2/css2.pdf">Specyfikacja CSS2</a></li>
+                    <li><a href="http://www.w3.org/TR/1999/PR-html40-19990824/html40.pdf">Specyfikacja HTML 4.01</a></li>
+                    <li><a href="http://mojastrona/dokumenty/phpdoc.chm">Dokumentacja PHP</a></li>
+                    <li><a href="http://mojastrona/dokumenty/javadoc.chm">Dokumentacja Javy</a></li>
+                    <li><a href="http://mojastrona/dokumenty/mysql.zip">Dokumentacja MySql</a></li>
+                </ul>
+            </li>
+        </ul>
+        <form action="#">
+            <label for="imie">Imię</label>
+            <input type="text" id="imie">
+            <label for="nazwisko">Nazwisko</label>
+            <input type="text" id="nazwisko">
+
+            <br><br>
+            Wysyłaj newsletter:
+            <input type="radio" name="howoften" id="daily" checked>
+            <label for="daily">Codziennie</label>
+
+            <input type="radio" name="howoften" id="weekly">
+            <label for="weekly">Tygodniowo</label>
+
+            <input type="radio" name="howoften" id="monthly">
+            <label for="monthly">Miesięcznie</label>
+        </form>
+	</body>
+</html>

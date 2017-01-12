@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.js"></script>
+        <script type="text/javascript">
+            /* Metody jQuery do manipulacji zawartością elementu
+                css — zwraca i (ewentualnie) ustawia wartość wybranego atrybutu1 CSS przypisanego pierwszemu elementowi
+                    zbioru wskazywanego przez selektor
+                html — pobiera kod HTML danego elementu strony (pierwszy element zbioru wskazywanego przez selektor),
+                    może być też użyta do przypisania kodu HTML elementowi
+                addClass - dodaje klasę CSS do elementu
+                removeClass — usuwa klasę CSS przypisaną elementom
+                text — pobiera i (ewentualnie) ustawia zawartość tekstową danego elementu i elementów potomnych
+                    (zawartość węzłów tekstowych DOM)
+                toggleClass — dodaje lub usuwa klasę (klasy) o nazwie przekazanej w postaci argumentu
+                attr — pobiera wartość wybranego atrybutu z pierwszego elementu zbioru lub ustawia wartość atrybutu 
+                    dla wszystkich elementów
+                removeAttr — usuwa wskazany atrybut ze wszystkich elementów zbioru
+                prop — pobiera wartość wybranej właściwości z pierwszego elementu zbioru lub ustawia wartość właściwości 
+                    dla wszystkich elementów
+                removeProp — usuwa wskazaną właściwość ze wszystkich elementów zbioru
+            */
+        </script>
+        <script type="text/javascript">
+            /* Pobieranie wartości atrybutów CSS */
+            $(function () {
+                console.log($('div').css('background-color'));
+                console.log($('div').css('width'));
+                console.log($('div').css('color'));
+                console.log($('div').css('margin-left'));
+            });
+        </script>
+        <script type="text/javascript">
+            /* Modyfikowanie wybranych atrybutów CSS */
+            $(function() {
+                $('div p').css('margin-left', '10px');
+                $('div p').css('background-color', 'white');
+                $('div p').css('text-align', 'justify');
+            });
+        </script>
+        <script type="text/javascript">
+            /* Dodawanie i usuwanie wielu klas */
+            $(function() {
+                $('#rozdzial2 p:eq(1)').removeClass('bold italic');
+                $('div p:nth-child(1)').addClass('bold').addClass('italic');
+            });
+        </script>
+        <script type="text/javascript">
+            /* Właściwości i atrybuty
+                Z atrybutami mamy do czynienia w kodzie HTML (href, title, id itp.), natomiast właściwości są przypisane 
+                węzłom DOM (nodeValue, nodeType itp.). W trakcie przetwarzania strony z atrybutów powstają właściwości.
+                Wartości interpretowane we właściwościach jako typ Boolean w przypadku atrybutów mogą mieć inną postać.
+            */
+        </script>
+        <script type="text/javascript">
+            /* Różnica między atrybutem a właściwością */
+            $(function() {
+                console.log("Wartość atrybutu checked " + $('#chb1').attr('checked'));
+                console.log("Wartość właściwości checked " + $('#chb1').prop('checked'));
+            });
+        </script>
+        <script type="text/javascript">
+            /* Modyfikowanie atrybutów */
+            $(function() {
+                $('div a:last-child').attr('title', 'Pobierz rozdział w formacie pdf');
+                $('div a:last-child').attr('type', 'application/pdf');
+            })
+        </script>
+        <script type="text/javascript">
+            /* Parametr metody attr w postaci zbioru par atrybut-wartość, nazywaną mapą właściwości (definicja obiektu JavaScript)
+                {
+                    atrybut1 : "wartość1", 
+                    atrybut2 : "wartość2", 
+                    atrybutN : "wartośćN",
+                    atrybutM : function(index, val) {
+                        //treść funkcji
+                    }
+                }
+            */
+        </script>
+        <script type="text/javascript">
+            /* Jednoczesny zapis kilku atrybutów */
+            $(function() {
+                $('div a:last-child').attr({
+                    title: 'Pobierz rozdział w formacie pdf',
+                    type: 'application/pdf'
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            /* Używanie funkcji zwrotnych
+                selektor.metoda('argument', function(indeks, poprzednia_wartość) { 
+                    //treść funkcji;
+                    return nowa_wartość;
+                });
+            */
+        </script>
+        <script type="text/javascript">
+            /* Użycie funkcji zwrotnej do wygenerowania identyfikatora elementu strony */
+            $(function() {
+                $('div p').attr('id', function(index, val) {
+                    return 'Akapit' + index;
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            /* Funkcja zwrotna w zestawie parametrów */
+            $(function() {
+                $('div a:last-child').attr({
+                    title: function(index, val) {
+                        return 'Pobierz rozdział ' + (index + 1) + ' w formacie PDF';
+                    },
+                    type: 'application/pdf'
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            /* Użycie w funkcji zwrotnej poprzedniej wartości atrybutu */
+            $(function() {
+                $('div a:last-child').attr({
+                    id: function(index, val) {
+                        return 'a' + this.href.substr(-3) + (index + 1);
+                    },
+                    href: function(index, val) {
+                        return val.replace('/dane/', '/ksiazki/jqcp/rozdzialy/');
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            /* Tworzenie nowego elementu */
+            $('<p>To jest dynamicznie utworzony akapit</p>');
+            /* Tworzenie nowego elementu z atrybutami w kodzie HTML */
+            $('<p id="Akapit1" lang="pl">Akapit</p>');
+            /* Tworzenie nowego elementu z atrybutami przekazanymi w postaci argumentu */
+            $('<p>Akapit</p>', {id: 'Akapt2', lang: 'pl'});
+            /* Można użyć obu sposobów równocześnie */
+            $('<p id="Akapit1">Akapit</p>', {lang: 'pl'});
+            /* Atrybut można też dodać za pomocą opisanej już metody attr */
+            $('<p>Akapit</p>').attr({id: 'Akapit1', lang: 'pl'});
+        </script>
+        <script type="text/javascript">
+            /* Dołączanie nowego elementu do drzewa DOM 
+                selektor.append(nowy_element) — dodaje nową treść na końcu każdego elementu wskazywanego przez selektor (jako ostatni węzeł potomny)
+                nowy_element.appendTo(selektor) — wykonuje to samo zadanie co append, różnica sprowadza się do kolejności elementów w wywołaniu
+                selektor.prepend(nowy_element) — dodaje nową treść na początku każdego elementu wskazywanego przez selektor (jako pierwszy węzeł potomny)
+                selektor.prependTo(selektor) — wykonuje to samo zadanie co prepend, różnica sprowadza się do kolejności elementów w wywołaniu
+                selektor.after(nowy_element) — dodaje nową treść za każdym elementem wskazywanym przez selektor
+                nowy_element.insertAfter(selektor) — wykonuje to samo zadanie co after, różnica sprowadza się do kolejności elementów w wywołaniu
+                selektor.before(nowy_element) — dodaje nową treść przed każdym elementem wskazywanym przez selektor
+                nowy_element.insertBefore(selektor) — wykonuje to samo zadanie co before, różnica sprowadza się do kolejności elementów w wywołaniu
+            */
+        </script>
+        <script type="text/javascript">
+            /* Dodanie nowego elementu do struktury witryny */
+            $(function() {
+                $('<p>Treść ostatniego akapitu w pierwszym rodziale.</p>')
+                        .addClass('bold italic')
+                        .insertBefore('#rozdzial1 a:last-child');
+            });
+        </script>
+        <script type="text/javascript">
+            /* Użycie funkcji zwrotnej przy tworzeniu elementów */
+            $(function() {
+                $('div a:last-child').before(
+                    function(index) {
+                        return $('<img />').attr('src', 'img_' + this.href.substr(-3) + '.png');
+                    }
+                );
+            });
+        </script>
+        <script type="text/javascript">
+            /* Opakowanie istniejącego elementu w nowy znacznik
+                wrap — opakowuje każdy element wskazany przez selektor w kod HTML przekazany jako argument
+                wrapAll — opakowuje wszystkie elementy wskazane przez selektor w kod HTML przekazany jako argument
+                wrapInner — opakowuje treść każdego elementu wskazywanego przez selektor w kod HTML przekazany jako argument
+            */
+        </script>
+        <script type="text/javascript">
+            /* Umieszczanie istniejących elementów w dodatkowej warstwie */
+            $(function() {
+                $('div a:last-child').wrap($('<div class="acontentlink">'));
+            });
+        </script>
+        <script type="text/javascript">
+            /* Opakowywanie treci elementu w dodatkowy znacznik */
+            $(function() {
+                $('div a:last-child').wrapInner(
+                    function(index) {
+                        var str = 'Pobierz plik ' + this.href.substr(this.href.lastIndexOf('/') + 1);
+                        // return '<span title="' + str + '">'; // Nie działa w Edge 38
+                        return $('<span />').attr('title', str);
+                    }
+                );
+            });
+        </script>
+        <script type="text/javascript">
+            /* Usuwanie i zamiana węzłów
+                detach — odłącza element od drzewa DOM i zwraca go w postaci obiektu jQuery; powiązane dane nie są usuwane; element może być dołączony ponownie do drzewa, zachowując przy tym wszystkie właściwości
+                empty — usuwa wszystkie węzły potomne elementu (włączając w to węzły tekstowe)
+                remove — usuwa element wraz z węzłami potomnymi, włączając w to wszelkie powiązane dane
+                treść.replaceAll(selektor) — wstawia nową treść zamiast wszystkich elementów wskazywanych przez selektor
+                selektor.replaceWith(treść) — wykonuje to samo zadanie co metoda replaceAll, różnica sprowadza się do kolejności parametrów; argumentem może być funkcja zwrotna
+                unwrap — odwrotność metody wrap, usuwa element okalający wskazane elementy.
+            */
+        </script>
+        <script type="text/javascript">
+            /* Usuwanie wybranych węzłów DOM */
+            $(function() {
+                //$('div a:last-child').remove();
+            });
+        </script>
+        <script type="text/javascript">
+            /* Zamiana miejscami elementów strony */
+            $(function() {
+                //$('#rozdzial2').detach().insertBefore($('#rozdzial1'));
+                ////$('#rozdzial2').after($('#rozdzial1').detach());
+            });
+        </script>
+        <script type="text/javascript">
+            /* Usuwanie elementów z pozostawieniem węzłów potomnych */
+            $(function() {
+                //$('div p').unwrap();
+            });
+        </script>
+        <script type="text/javascript">
+            /* Poruszanie się po drzewie DOM
+                each — dla każdego węzła znajdującego się w zbiorze wywołuje funkcję przekazaną w postaci argumentu
+                next — pobiera kolejny węzeł sąsiadujący
+                nextAll — pobiera wszystkie kolejne węzły sąsiadujące
+                prev — pobiera poprzedni węzeł sąsiadujący
+                prevAll — pobiera wszystkie poprzednie węzły sąsiadujące
+            */
+        </script>
+        <script type="text/javascript">
+            /* Użycie metody each do odczytu atrybutów */
+            $(function() {
+                $('div p').each(
+                    function(index, element) {
+                        var classVal = $(element).attr('class');
+                        if (classVal == undefined) {
+                            classVal = 'brak atrybutu';
+                        }
+                        console.log('Element nr ' + index + ': ' + classVal);
+                    }
+                );
+            });
+        </script>
+        <script type="text/javascript">
+            /* Złożony wybór węzłów */
+            $(function() {
+                
+            });
+        </script>
+        <title>Manipulowanie węzłami DOM</title>
+        <style>
+            div {
+                width: 400px;
+                margin: 10px;
+                background-color: #F0F0F0;
+            }
+            .bold {
+                font-weight: bold;
+            }
+            .italic {
+                font-style: italic;
+            }
+            .marked {
+                font-weight: bold;
+                color: darkorange;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="rozdzial1">
+            <p>Treść pierwszego akapitu.</p>
+            <p class="bold italic marked">Treść drugiego akapitu.</p>
+            <p class="bold italic">Treść trzeciego akapitu.</p>
+            <a href="/dane/rozdzial1.pdf">Pobierz</a>
+        </div>
+        <div id="rozdzial2">
+            <p>Treść pierwszego akapitu. </p>
+            <p class="bold italic">Treść drugiego akapitu.</p>
+            <p>Treść trzeciego akapitu.</p>
+            <a class='bold' href="/dane/rozdzial2.pdf">Pobierz</a>
+        </div>
+        <input type="checkbox" id="chb1" name="wybor1" checked="checked">
+    </body>
+</html>
