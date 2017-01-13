@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.js"></script>
+        <script type="text/javascript">
+        	/* Ukrywanie i pokazywanie elementów
+        		show([czas_efektu])
+        		show(czas_efektu[, funkcja_kończąca])
+        		show(czas_efektu[, funkcja_transformująca][, funkcja_kończąca])
+        		hide([czas_efektu])
+        		hide(czas_efektu[, funkcja_kończąca])
+        		hide(czas_efektu[, funkcja_transformująca][, funkcja_kończąca])
+        		toggle([czas_efektu])
+        		toggle(czas_efektu[, funkcja_kończąca])
+        		toggle(czas_efektu[, funkcja_transformująca][, funkcja_kończąca])
+        	*/
+        </script>
+        <script type="text/javascript">
+        	/* Ukrywanie i wyświetlanie elementów w odpowiedzi na kliknięcie */
+        	$(function() {
+        		$('.rozdzial p').hide();
+        		$('#hideChapters').prop('disabled', true);
+        		$('#showChapters').on('click', function() {
+        			$('.rozdzial p').show();
+        			$('#showChapters').prop('disabled', true);
+        			$('#hideChapters').prop('disabled', false);
+        		});
+        		$('#hideChapters').on('click', function() {
+        			$('.rozdzial p').hide();
+        			$('#showChapters').prop('disabled', false);
+        			$('#hideChapters').prop('disabled', true);
+        		});
+        	});
+        </script>
+        <script type="text/javascript">
+        	/* Przełączanie widoczności */
+        	
+        </script>
+        <title>Efekty na stronach WWW</title>
+        <style>
+        </style>
+    </head>
+    <body>
+    	<div id="div-options">
+            <button id="showChapters">Pokaż rozdziały</button>
+            <button id="hideChapters">Ukryj rozdziały</button>
+        </div>
+        <div id="rozdzial1" class="rozdzial">
+            <h3>Rozdział 1.</h3>
+            <p>To jest treść pierwszego akapitu.</p>
+            <p>To jest treść drugiego akapitu.</p>
+            <a href="/dane/rozdzial1.pdf">Pobierz</a>
+        </div>
+        <div id="rozdzial2" class="rozdzial">
+            <h3>Rozdział 2.</h3>
+            <p>To jest treść pierwszego akapitu.</p>
+            <p>To jest treść drugiego akapitu.</p>
+            <a href="/dane/rozdzial2.pdf">Pobierz</a>
+        </div>
+    </body>
+</html>
