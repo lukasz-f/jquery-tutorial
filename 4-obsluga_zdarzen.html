@@ -207,8 +207,29 @@
             });
         </script>
         <script type="text/javascript">
-            /* Usuwanie procedur obsługi */
-
+            /* Usuwanie procedur obsługi 
+                element.off() - powoduje usunięcie wszystkich funkcji powiązanych ze wszystkimi zdarzeniami
+                element.off('click') - powoduje usunięcie wszystkich funkcji powiązanych ze zdarzeniem click
+                element.off('click', funkcja) - powoduje usunięcie podanej funkcji powiązanej ze zdarzeniem click
+            */
+        </script>
+        <script type="text/javascript">
+            /* Dynamiczne dodawanie i usuwanie procedur obsługi */
+            var counter = 0;
+            function clickHandler(event) {
+                counter++;
+                $(event.target).text(counter);
+            }
+            $(function() {
+                $('#button-addhandler').on('click', function() {
+                    $('#div3').on('mouseover', clickHandler); 
+                });
+                $('#button-removehandler').on('click', function() {
+                    $('#div3').off('mouseover');
+                    counter = 0;
+                    $('#div3').text(counter);
+                });
+            });
         </script>
         <title>Obsługa zdarzeń</title>
         <style>
@@ -249,6 +270,9 @@
         <div id="div1">
             Jestem warstw zewnętrzn.
             <div id="div2">Jestem warstw wewnętrzn.</div>
-        </div> 
+        </div>
+        <button id="button-addhandler">Dodaj procedurę obsługi</button>
+        <button id="button-removehandler">Usuń procedury obsługi</button>
+        <div id="div3">0</div>
     </body>
 </html>
