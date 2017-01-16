@@ -14,6 +14,7 @@
         		toggle([czas_efektu])
         		toggle(czas_efektu[, funkcja_kończąca])
         		toggle(czas_efektu[, funkcja_transformująca][, funkcja_kończąca])
+        		czas_efektu - wartość liczbowa w ms lub predefiniowany parametr: 'slow', 'medium', 'fast'
         	*/
         </script>
         <script type="text/javascript">
@@ -35,7 +36,48 @@
         </script>
         <script type="text/javascript">
         	/* Przełączanie widoczności */
-        	
+        	$(function () {
+        		$('.rozdzial p').hide();
+        		$('.rozdzial').on('click', function() {
+        			//$('p', this).toggle();
+        			//lub $(this).children('p').toggle(); 
+        		});
+        	});
+        </script>
+        <script type="text/javascript">
+        	/* Animowane wywietlanie akapitów */
+        	$(function () {
+        		var showSpeed = 200;
+        		var hideSpeed = 1000;
+        		var speed = showSpeed;
+        		$('.rozdzial p').hide();
+				$('.rozdzial').on('click', function() {
+					//$('p', this).toggle(speed);
+					if (speed == showSpeed) {
+						speed = hideSpeed;
+					} else {
+						speed = showSpeed;
+					}
+				});
+        	});
+        </script>
+        <script type="text/javascript">
+        	/* Uwzględnianie bieżącego stanu elementu */
+        	$(function() {
+        		$('.rozdzial p').hide();
+        		$('.rozdzial').on('click', function() {
+        			if ($('p', this).is(':hidden')) {
+						$('p', this).show('medium');
+        			} else {
+        				$('p', this).hide('slow');
+        			}
+        		});
+        	});
+        </script>
+        <script type="text/javascript">
+        	/* Efekty fade-in i fade-out 
+
+        	*/
         </script>
         <title>Efekty na stronach WWW</title>
         <style>
