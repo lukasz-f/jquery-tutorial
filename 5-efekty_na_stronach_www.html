@@ -5,6 +5,9 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.js"></script>
         <script type="text/javascript">
         	/* Ukrywanie i pokazywanie elementów
+        		show - pokaż
+        		hide - ukryj
+        		toggle - zmiana stanu na przeciwny
         		show([czas_efektu])
         		show(czas_efektu[, funkcja_kończąca])
         		show(czas_efektu[, funkcja_transformująca][, funkcja_kończąca])
@@ -66,24 +69,155 @@
         	$(function() {
         		$('.rozdzial p').hide();
         		$('.rozdzial').on('click', function() {
-        			if ($('p', this).is(':hidden')) {
-						$('p', this).show('medium');
+        			if ($(this).children('p').is(':hidden')) {
+						$(this).children('p').show('medium');
         			} else {
-        				$('p', this).hide('slow');
+        				$(this).children('p').hide('slow');
         			}
         		});
         	});
         </script>
         <script type="text/javascript">
         	/* Efekty fade-in i fade-out 
-
+				Efekt pojawiania się lub znikania elementu osiągnięty za pomocą zmiany jego przezroczystości.
+				fadeIn - zmiana od pełnej przezroczystości do zerowej
+				fadeOut - zmiana od zerowej przezroczystości do pełnej
+				fadeToggle - powoduje naprzemienną zmianę stanu elementu
+				fadeIn([czas_efektu])
+        		fadeIn(czas_efektu[, funkcja_kończąca])
+        		fadeIn(czas_efektu[, funkcja_transformująca][, funkcja_kończąca])
+        		fadeOut([czas_efektu])
+        		fadeOut(czas_efektu[, funkcja_kończąca])
+        		fadeOut(czas_efektu[, funkcja_transformująca][, funkcja_kończąca])
+        		fadeToggle([czas_efektu])
+        		fadeToggle(czas_efektu[, funkcja_kończąca])
+        		fadeToggle(czas_efektu[, funkcja_transformująca][, funkcja_kończąca])
+        		czas_efektu - wartość liczbowa w ms lub predefiniowany parametr: 'slow', 'medium', 'fast'
         	*/
+        </script>
+        <script type="text/javascript">
+        	/* Pojawianie się i znikanie obrazu */
+        	$(function() {
+        		$('#img-php5pk2-1').hide();
+        		$('#button-showhideimage-1').text('Pokaż obraz');
+        		$('#button-showhideimage-1').on('click', function() {
+        			if ($('#img-php5pk2-1').is(':hidden')) {
+        				$('#img-php5pk2-1').fadeIn('slow');
+        				$('#button-showhideimage-1').text('Ukryj obraz');
+        			} else {
+        				$('#img-php5pk2-1').fadeOut('slow');
+						$('#button-showhideimage-1').text('Pokaż obraz');
+        			}
+        		});
+        	});
+        </script>
+        <script type="text/javascript">
+        	/* Sterowanie szybkością efektu */
+        	$(function () {
+        		$('#img-php5pk2-2').hide();
+        		$('#button-showhideimage-2').text('Pokaż obraz');
+        		$('#button-showhideimage-2').on('click', function() {
+        			var speed = $('input:radio[name="speed"]:checked').val();
+        			if ($('#img-php5pk2-2').is(':hidden')) {
+        				$('#img-php5pk2-2').fadeIn(speed);
+        				$('#button-showhideimage-2').text('Ukryj obraz');
+        			} else {
+        				$('#img-php5pk2-2').fadeOut(speed);
+						$('#button-showhideimage-2').text('Pokaż obraz');
+        			}
+        		});
+        	});
+        </script>
+        <script type="text/javascript">
+        	/* Rozwijanie elementów
+				slideDown - rozwijanie
+				slideUp - zwijanie
+				slideToggle - zmiana stanu na przeciwny
+				slideDown([czas_efektu])
+        		slideDown(czas_efektu[, funkcja_kończąca])
+        		slideDown(czas_efektu[, funkcja_transformująca][, funkcja_kończąca])
+        		slideUp([czas_efektu])
+        		slideUp(czas_efektu[, funkcja_kończąca])
+        		slideUp(czas_efektu[, funkcja_transformująca][, funkcja_kończąca])
+        		slideToggle([czas_efektu])
+        		slideToggle(czas_efektu[, funkcja_kończąca])
+        		slideToggle(czas_efektu[, funkcja_transformująca][, funkcja_kończąca])
+        		czas_efektu - wartość liczbowa w ms lub predefiniowany parametr: 'slow', 'medium', 'fast'
+        	*/
+        </script>
+        <script type="text/javascript">
+        	/* Moduły z rozwijaną treścią */
+        	$(function() {
+        		$('.box-title').on('click', function() {
+        			var boxContent = $(this).parent().find('div.box-content');
+        			if (boxContent.is(':hidden')) {
+        				boxContent.slideDown('slow');
+        			} else {
+        				boxContent.slideUp('slow');
+        			}
+        		});
+        	});
+        </script>
+        <script type="text/javascript">
+        	/* Rozwijalne menu poziome */
+        	$(function() {
+        		$('#listaPublikacji > li').addClass('horizontal-align width300px');
+        		$('#listaPublikacji > li + li').addClass('margin20px');
+        		$('ul').addClass('no-bullet');
+        		$('li').on('click', function(event) {
+ 					var element = $(this).find('ul');
+ 					// var element = $(this).children('ul');
+ 					if(element.is(':hidden')){
+ 					    element.slideDown();    
+ 					} else {
+ 					    element.slideUp();    
+ 					}
+ 					event.stopPropagation();
+        		});
+        	});
         </script>
         <title>Efekty na stronach WWW</title>
         <style>
+        	.box {
+  				border: 1px solid black;
+  				width: 300px;
+  				float: left;
+  				margin: 10px;
+			}
+			.box-title {
+  				border-bottom: 1px solid black;
+  				background-color: #E0E0E0;
+  				padding: 2px;
+  				cursor: pointer;
+			}
+			.box-content {
+  				padding: 2px;
+  				background-color: #F0F0F0;
+			}
+			.clearfix::after {
+    			content: "";
+    			clear: both;
+    			display: table;
+			}
+			.horizontal-align {
+				float: left;
+			}
+            .margin20px {
+                margin-left: 20px;
+            }
+            .width300px {
+            	width: 300px;
+            }
+            .no-bullet {
+                list-style: none;
+            }
+            li {
+            	cursor: pointer;
+            }
         </style>
     </head>
     <body>
+    	<!-- Ukrywanie i pokazywanie elementów -->
     	<div id="div-options">
             <button id="showChapters">Pokaż rozdziały</button>
             <button id="hideChapters">Ukryj rozdziały</button>
@@ -92,13 +226,73 @@
             <h3>Rozdział 1.</h3>
             <p>To jest treść pierwszego akapitu.</p>
             <p>To jest treść drugiego akapitu.</p>
-            <a href="/dane/rozdzial1.pdf">Pobierz</a>
+            <a href="#">Pobierz</a>
         </div>
         <div id="rozdzial2" class="rozdzial">
             <h3>Rozdział 2.</h3>
             <p>To jest treść pierwszego akapitu.</p>
             <p>To jest treść drugiego akapitu.</p>
-            <a href="/dane/rozdzial2.pdf">Pobierz</a>
+            <a href="#">Pobierz</a>
+        </div>
+        <div class="clearfix">
+        	<!-- Pojawianie się i znikanie obrazu -->
+	        <div class="horizontal-align">
+	        	<button id="button-showhideimage-1"></button>
+	        	<br />
+	        	<img src="php5pk2-okladka.jpg" id="img-php5pk2-1" title="PHP5. Praktyczny kurs" />
+	        </div>
+	        <!-- Sterowanie szybkością efektu -->
+	        <div class="horizontal-align margin20px">
+	        	<button id="button-showhideimage-2"></button>
+	        	<input type="radio" name="speed" value="slow" checked="checked" />Wolno
+	        	<input type="radio" name="speed" value="medium" />Średnio 
+	        	<input type="radio" name="speed" value="fast" />Szybko
+	        	<br />
+	        	<img src="php5pk2-okladka.jpg" id="img-php5pk2-2" title="PHP5. Praktyczny kurs" />
+	        </div>
+        </div>
+        <!-- Moduły z rozwijaną treścią -->
+		<div class="clearfix">
+	        <div class="box">
+	        	<div class="box-title">Pasek tytułowy (boks nr 1)</div>
+	        	<div class="box-content">Tutaj treść modułu nr 1</div>
+	        </div>
+	        <div class="box">
+	        	<div class="box-title">Pasek tytułowy (boks nr 2)</div>
+	        	<div class="box-content">Tutaj treść modułu nr 2</div>
+	        </div>
+        </div>
+        <!-- Rozwijalne menu poziome -->
+        <div class="clearfix">
+    		<ul id="listaPublikacji">
+                <li>Książki
+                    <ul id="ksiazkiInformatyczne">
+                        <li>JavaScript
+                            <ul>
+                                <li class="ebook"><a href="http://helion.pl/ksiazki/cwjas3.htm">JavaScript. ćwiczenia praktyczne</a></li>
+                                <li>JavaScript. Praktyczny kurs</li>
+                                <li><a href="http://helion.pl/ksiazki/tijs.htm">Tablice informatyczne. JavaScript</a></li>
+                            </ul>
+                        </li>
+                        <li>PHP
+                            <ul>
+                                <li class="ebook"><a href="http://helion.pl/ksiazki/ph5pk2.htm">PHP. Praktyczny kurs</a></li>
+                                <li>PHP. 101 praktycznych skryptów</li>
+                                <li><a href="http://helion.pl/ksiazki/tiphp5.htm">Tablice informatyczne. PHP 5</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="horizontal-align margin20px">Dokumenty
+                    <ul>
+                        <li><a href="http://www.w3.org/TR/CSS2/css2.pdf">Specyfikacja CSS2</a></li>
+                        <li><a href="http://www.w3.org/TR/1999/PR-html40-19990824/html40.pdf">Specyfikacja HTML 4.01</a></li>
+                        <li><a href="http://mojastrona/dokumenty/phpdoc.chm">Dokumentacja PHP</a></li>
+                        <li><a href="http://mojastrona/dokumenty/javadoc.chm">Dokumentacja Javy</a></li>
+                        <li><a href="http://mojastrona/dokumenty/mysql.zip">Dokumentacja MySql</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </body>
 </html>
