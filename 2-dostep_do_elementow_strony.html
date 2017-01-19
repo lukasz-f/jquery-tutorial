@@ -214,38 +214,45 @@
             .coloredElement {
                 background-color: #EEEEFF;
             }
+            .clearfix::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
         </style>
 	</head>
 	<body>
-		<ul id="listaPublikacji">
-            <li>Książki
-                <ul id="ksiazkiInformatyczne">
-                    <li>JavaScript
-                        <ul>
-                            <li class="ebook"><a href="http://helion.pl/ksiazki/cwjas3.htm">JavaScript. ćwiczenia praktyczne</a></li>
-                            <li>JavaScript. Praktyczny kurs</li>
-                            <li><a href="http://helion.pl/ksiazki/tijs.htm">Tablice informatyczne. JavaScript</a></li>
-                        </ul>
-                    </li>
-                    <li>PHP
-                        <ul>
-                            <li class="ebook"><a href="http://helion.pl/ksiazki/ph5pk2.htm">PHP. Praktyczny kurs</a></li>
-                            <li>PHP. 101 praktycznych skryptów</li>
-                            <li><a href="http://helion.pl/ksiazki/tiphp5.htm">Tablice informatyczne. PHP 5</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>Dokumenty
-                <ul>
-                    <li><a href="http://www.w3.org/TR/CSS2/css2.pdf">Specyfikacja CSS2</a></li>
-                    <li><a href="http://www.w3.org/TR/1999/PR-html40-19990824/html40.pdf">Specyfikacja HTML 4.01</a></li>
-                    <li><a href="http://mojastrona/dokumenty/phpdoc.chm">Dokumentacja PHP</a></li>
-                    <li><a href="http://mojastrona/dokumenty/javadoc.chm">Dokumentacja Javy</a></li>
-                    <li><a href="http://mojastrona/dokumenty/mysql.zip">Dokumentacja MySql</a></li>
-                </ul>
-            </li>
-        </ul>
+        <div class="clearfix">
+    		<ul id="listaPublikacji">
+                <li>Książki
+                    <ul id="ksiazkiInformatyczne">
+                        <li>JavaScript
+                            <ul>
+                                <li class="ebook"><a href="http://helion.pl/ksiazki/cwjas3.htm">JavaScript. ćwiczenia praktyczne</a></li>
+                                <li>JavaScript. Praktyczny kurs</li>
+                                <li><a href="http://helion.pl/ksiazki/tijs.htm">Tablice informatyczne. JavaScript</a></li>
+                            </ul>
+                        </li>
+                        <li>PHP
+                            <ul>
+                                <li class="ebook"><a href="http://helion.pl/ksiazki/ph5pk2.htm">PHP. Praktyczny kurs</a></li>
+                                <li>PHP. 101 praktycznych skryptów</li>
+                                <li><a href="http://helion.pl/ksiazki/tiphp5.htm">Tablice informatyczne. PHP 5</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>Dokumenty
+                    <ul>
+                        <li><a href="http://www.w3.org/TR/CSS2/css2.pdf">Specyfikacja CSS2</a></li>
+                        <li><a href="http://www.w3.org/TR/1999/PR-html40-19990824/html40.pdf">Specyfikacja HTML 4.01</a></li>
+                        <li><a href="http://mojastrona/dokumenty/phpdoc.chm">Dokumentacja PHP</a></li>
+                        <li><a href="http://mojastrona/dokumenty/javadoc.chm">Dokumentacja Javy</a></li>
+                        <li><a href="http://mojastrona/dokumenty/mysql.zip">Dokumentacja MySql</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
         <form action="#">
             <label for="imie">Imię</label>
             <input type="text" id="imie">
