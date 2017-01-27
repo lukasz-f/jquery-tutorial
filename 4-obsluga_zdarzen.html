@@ -178,7 +178,7 @@
             /* Wyłączenie działania odnośników */
             $(function() {
                 var disabledLinks = false;
-                $('#button-enabledisablelinks').text('Wyłcz odnośniki');
+                $('#button-enabledisablelinks').text('Wyłącz odnośniki');
                 $('div a').click(function(event) {
                     if(disabledLinks) {
                         event.preventDefault();
@@ -219,6 +219,7 @@
             function clickHandler(event) {
                 counter++;
                 $(event.target).text(counter);
+                // lub $(this).text(counter);
             }
             $(function() {
                 $('#button-addhandler').on('click', function() {
