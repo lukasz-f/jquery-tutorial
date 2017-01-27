@@ -176,6 +176,58 @@
         		});
         	});
         </script>
+        <script type="text/javascript">
+        	/* Własne animacje 
+				animate(mapa_właściwości[, czas_efektu][, funkcja_transformująca][, funkcja_kończąca]) - definiowanie własnych animacji
+				mapa_właściwości - lista atrybutów CSS wraz z wartościami np.: {atrybut1: wartość1, atrybut2: wartość2, ..., atrybutN: wartośćN}.
+					Należy korzystać z takich atrybutów, których wartości można przedstawić w postaci liczbowej np.: height, opacity.
+					Aby podać jednostkę miary można użyć: {height: '600px'} lub {height: 600 + 'px'}.
+					Zamiast określać wartości można używać słów hide, show, toggle np.: {height: 'toggle'}
+					Dostępne są również zapisy += i -= np.: {height: '+=100'}
+				czas_efektu - wartość liczbowa w ms lub predefiniowany parametr: 'slow', 'medium', 'fast'. Gdy pominięty zostanie przyjęta domyślna wartość 400
+        	*/
+        </script>
+        <script type="text/javascript">
+        	/* Proste użycie metody animate */
+        	$(function() {
+        		$('.box-title').click(function() {
+        			var boxContent = $(this).parent().find('div.box-content');
+        			// boxContent.animate({height: 'toggle'});
+        		});
+        	});
+        </script>
+        <script type="text/javascript">
+        	/* Łączenie kilku efektów w jednej animacji */
+        	$(function() {
+        		var imgWidth = $('#img-php5pk2-3').width();
+        		var imgHeight = $('#img-php5pk2-3').height();
+        		$('#img-php5pk2-3').hide();
+        		$('#img-php5pk2-3').css({
+        			opacity: 0,
+        			height: imgHeight,
+        			width: '0px'
+        		});
+        		$('#button-showhideimage-3').text('Pokaż obraz');
+        		$('#button-showhideimage-3').on('click', function() {
+        			if ($('#img-php5pk2-3').is(':hidden')) {
+        				$('#img-php5pk2-3').show();
+        				$('#img-php5pk2-3').animate(
+        					{opacity: 1, width: imgWidth}, 
+        					'slow'
+        				);
+        			} else {
+        				$('#img-php5pk2-3').animate(
+        					{opacity: 0, width: '0px'},
+        					'slow',
+        					function() {
+        						$('#img-php5pk2-3').hide();
+        					}
+        				);
+						$('#button-showhideimage-3').text('Pokaż obraz');
+        			}
+        		});
+        	});
+        </script>
         <title>Efekty na stronach WWW</title>
         <style>
         	.box {
@@ -249,6 +301,12 @@
 	        	<input type="radio" name="speed" value="fast" />Szybko
 	        	<br />
 	        	<img src="php5pk2-okladka.jpg" id="img-php5pk2-2" title="PHP5. Praktyczny kurs" />
+	        </div>
+	        <!-- Kilka efektów w jednej animacji -->
+	        <div class="horizontal-align">
+	        	<button id="button-showhideimage-3"></button>
+	        	<br />
+	        	<img src="php5pk2-okladka.jpg" id="img-php5pk2-3" title="PHP5. Praktyczny kurs" />
 	        </div>
         </div>
         <!-- Moduły z rozwijaną treścią -->
