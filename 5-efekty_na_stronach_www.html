@@ -190,7 +190,7 @@
         <script type="text/javascript">
         	/* Proste użycie metody animate */
         	$(function() {
-        		$('.box-title').click(function() {
+        		$('.box-title').on('click', function() {
         			var boxContent = $(this).parent().find('div.box-content');
         			// boxContent.animate({height: 'toggle'});
         		});
@@ -228,6 +228,60 @@
         		});
         	});
         </script>
+        <script type="text/javascript">
+        	/* Animowane przemieszczanie elementów 
+				width - szerokość właściwa
+				innerWidth - szerokość z uwzględnieniem wypełnienia (ang. padding)
+				outerWidth - szerokość z uwzględnieniem marginesu
+				height - wysokość właściwa
+				innerHeight - wysokość z uwzględnieniem wypełnienia
+				outerHeight - wysokość z uwzględnieniem marginesu
+				Należy pamiętać, że aby zmiana właściwości 'left' bądź 'top' mogła odnieść skutek, element musi mieć pozycjonowanie bezwzględne (absolute), względne (relative) lub ustalone (fixed), nie może to natomiast być domyślne pozycjonowanie statyczne (static).
+        	*/
+        </script>
+        <script type="text/javascript">
+        	/* Automatyczna zmiana położenia elementów */
+        	$(function() {
+        		$('.absoluteBox-title').on('click', function() {
+					var width = $(this).parent().outerWidth();
+        			var areaWidth = $(this).parent().parent().width();
+        			$(this).parent().animate({left: areaWidth - width}, 1000);
+        		});
+        	});
+        </script>
+        <script type="text/javascript">
+        	/*  Przesuwanie elementu w różnych kierunkach */
+        	$(function() {
+        		var startPosLeft = 10, startPosTop = 10;
+        		var speed = 1000;
+        		$('.absolutePointerBox').prop('left', startPosLeft).prop('top', startPosTop);
+        		$('.absolutePointerBox').click(function(evt) {
+        			switch ($(this).prop('phase')) {
+        		 		case '1':
+        		 		case undefined:
+        		 			var width = $(this).outerWidth();
+        		 			var areaWidth = $(this).parent().width();
+        		 			$(this).animate({left: areaWidth - width - startPosLeft}, speed);
+        		 			$(this).prop('phase', '2');
+        		 		break;
+        		 		case '2':
+        		 			var height = $(this).outerHeight();
+        		 			var areaHeight = $(this).parent().height();
+        		 			$(this).animate({top: areaHeight - height - startPosTop}, speed);
+        		 			$(this).prop('phase', '3');
+        		 		break;
+        		 		case '3':
+        		 			$(this).animate({left: startPosLeft}, speed);
+        		 			$(this).prop('phase', '4');
+        		 		break;
+        		 		case '4':
+        		 			$(this).animate({top: startPosTop}, speed);
+        		 			$(this).prop('phase', '1');
+        		 		break;
+        		 	}
+        		 });
+        	});
+        </script>
         <title>Efekty na stronach WWW</title>
         <style>
         	.box {
@@ -236,11 +290,31 @@
   				float: left;
   				margin: 10px;
 			}
-			.box-title {
+			.absoluteBox {
+  				border: 1px solid black;
+  				width: 300px;
+  				float: left;
+  				margin: 10px;
+  				position: absolute;
+			}
+			.absolutePointerBox {
+  				border: 1px solid black;
+  				width: 300px;
+  				float: left;
+  				margin: 10px;
+  				position: absolute;
+  				cursor: pointer;
+			}
+			.box-title, .absoluteBox-title {
   				border-bottom: 1px solid black;
   				background-color: #E0E0E0;
   				padding: 2px;
   				cursor: pointer;
+			}
+			.absolutePointerBox-title {
+  				border-bottom: 1px solid black;
+  				background-color: #E0E0E0;
+  				padding: 2px;
 			}
 			.box-content {
   				padding: 2px;
@@ -250,6 +324,14 @@
     			content: "";
     			clear: both;
     			display: table;
+			}
+			#boxes {
+				width: 600px;
+				height: 800px;
+				border: 1px solid black;
+				position: absolute;
+				top: 0px;
+				left: 700px;
 			}
 			.horizontal-align {
 				float: left;
@@ -319,6 +401,18 @@
 	        	<div class="box-title">Pasek tytułowy (boks nr 2)</div>
 	        	<div class="box-content">Tutaj treść modułu nr 2</div>
 	        </div>
+        </div>
+        <!-- Zmiana położenia elementów -->
+        <div class="absoluteBox">
+        	<div class="absoluteBox-title">Pasek tytułowy (boks nr 3)</div>
+        	<div class="box-content">Tutaj treść modułu nr 3</div>
+	    </div>
+	    <!-- Przesuwanie w różnych kierunkach -->
+        <div id="boxes">
+	        <div class="absolutePointerBox">
+	        	<div class="absolutePointerBox-title">Pasek tytułowy (boks nr 4)</div>
+	        	<div class="box-content">Tutaj treść modułu nr 4</div>
+        	</div>
         </div>
         <!-- Rozwijalne menu poziome -->
         <div class="clearfix">
